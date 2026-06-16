@@ -59,4 +59,17 @@ class DemoApplicationTests {
 		 */
 	}
 
+	// Pas oublier d'importer: import java.util.List;
+	@Test
+	public void testListerTousUtilisateurs() {
+		utilisateur u1 = new utilisateur("Huynh", "Yvon", "a@test.com", "123", "test", LocalDateTime.now());
+		utilisateur u2 = new utilisateur("Marie", "Dupont", "b@test.com", "123", "test", LocalDateTime.now());
+
+		userRepository.save(u1);
+		userRepository.save(u2);
+
+		List<utilisateur> users = userRepository.findAll();
+
+		assertTrue(users.size() == 2);
+	}
 }
