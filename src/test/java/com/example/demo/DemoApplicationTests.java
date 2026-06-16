@@ -34,4 +34,13 @@ class DemoApplicationTests {
 		assertEquals("Yvon", u1.getPrenom());
 	}
 
+	@Test
+	public void testUpdateUser() {
+		utilisateur u1 = userRepository.findById(3).get();
+		u1.setRole("test2");
+		userRepository.save(u1);
+
+		assertEquals("test2", u1.getRole());
+	}
+
 }
