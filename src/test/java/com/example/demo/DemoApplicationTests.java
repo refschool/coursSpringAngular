@@ -43,4 +43,20 @@ class DemoApplicationTests {
 		assertEquals("test2", u1.getRole());
 	}
 
+	@Test
+	public void testDeleteUser() {
+		userRepository.deleteById(3);
+
+		/*
+		 * utilisateur u = new utilisateur("Huynh", "Yvon", "test@test.com", "123",
+		 * "test", LocalDateTime.now());
+		 * u = userRepository.save(u);
+		 * 
+		 * userRepository.deleteById(u.getId());
+		 * 
+		 * assertFalse(userRepository.findById(u.getId()).isPresent());
+		 * 
+		 */
+	}
+
 }
