@@ -16,4 +16,10 @@ public interface utilisateurRepository extends JpaRepository<utilisateur, Intege
     @Query("SELECT u FROM utilisateur u WHERE u.nom LIKE %:nom% AND u.prenom LIKE %:prenom%")
     List<utilisateur> searchByNomPrenom(@Param("nom") String nom, @Param("prenom") String prenom);
 
+    @Query("SELECT u FROM utilisateur u ORDER BY u.nom ASC")
+    List<utilisateur> findAllOrderByNomAsc();
+
+    @Query("SELECT u FROM utilisateur u ORDER BY u.nom ASC, u.prenom DESC")
+    List<utilisateur> findAllOrderByNomAscPrenomDESC();
+
 }

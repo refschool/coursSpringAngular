@@ -133,4 +133,46 @@ class DemoApplicationTests {
 
 	}
 
+	@Test
+	public void testOrderByNomAsc() {
+
+		utilisateur u1 = new utilisateur("Bernard", "Paul", "b@test.com", "123", "test", LocalDateTime.now());
+		utilisateur u2 = new utilisateur("Adam", "Luc", "a@test.com", "123", "test", LocalDateTime.now());
+		utilisateur u3 = new utilisateur("Charles", "Marc", "c@test.com", "123", "test", LocalDateTime.now());
+
+		userRepository.save(u1);
+		userRepository.save(u2);
+		userRepository.save(u3);
+
+		List<utilisateur> users = userRepository.findAllOrderByNomAsc();
+
+		assertEquals("Adam", users.get(0).getNom());
+		assertEquals("Bernard", users.get(1).getNom());
+		assertEquals("Charles", users.get(2).getNom());
+	}
+
+	@Test
+	public void testOrderByNomAscPrenomDESC() {
+
+		utilisateur u1 = new utilisateur("Dupont", "Zoe", "z@test.com", "123", "test", LocalDateTime.now());
+		utilisateur u2 = new utilisateur("Dupont", "Alice", "a@test.com", "123", "test", LocalDateTime.now());
+		utilisateur u3 = new utilisateur("Martin", "Bob", "b@test.com", "123", "test", LocalDateTime.now());
+
+		userRepository.save(u1);
+		userRepository.save(u2);
+		userRepository.save(u3);
+
+		List<utilisateur> users = userRepository.findAllOrderByNomAscPrenomDESC();
+
+		assertEquals("Dupont", users.get(0).getNom());
+		assertEquals("Zoe", users.get(0).getPrenom());
+
+		assertEquals("Dupont", users.get(1).getNom());
+		assertEquals("Alice", users.get(1).getPrenom());
+
+		assertEquals("Martin", users.get(2).getNom());
+		assertEquals("Bob", users.get(2).getPrenom());
+
+	}
+
 }
