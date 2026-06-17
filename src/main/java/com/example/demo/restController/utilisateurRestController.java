@@ -38,4 +38,8 @@ public class utilisateurRestController {
         return utilisateurService.saveUtilisateur(u);
     }
 
+    @PutMapping
+    public utilisateur updateUtilisateur(@RequestBody utilisateur u) {
+        return utilisateurService.updateUtilisateur(u);
+    }
 }
