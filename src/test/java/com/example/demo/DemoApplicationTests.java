@@ -1,16 +1,18 @@
 package com.example.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.demo.entities.utilisateur;
-import com.example.demo.repository.utilisateurRepository;
+import com.example.demo.entities.*;
+import com.example.demo.repository.*;
 import java.util.List;
 
 @SpringBootTest
@@ -95,4 +97,40 @@ class DemoApplicationTests {
 			assertEquals("Yvon", user.getPrenom());
 		}
 	}
+
+	@Autowired
+	private commercialRepository commercialRepository;
+
+	@Autowired
+	private prospectRepository prospectRepository;
+
+	@Test
+	public void testFindCommercial() {
+		commercial c = new commercial();
+		c.setNom("Huynh");
+		c.setPrenom("Yvon");
+		c.setEmail("c@test.com");
+		c.setTelephone("0102030405");
+		c.setDateEmbauche(LocalDate.now());
+		commercialRepository.save(c);
+
+		prospect p = new prospect();
+		p.setNom("Client");
+		p.setPrenom("Test");
+		p.setEmail("client@test.com");
+		p.setTelephone("0600000000");
+		p.setEntreprise("TestCorp");
+		p.setSource("Web");
+		p.setCommercial(c);
+		p.setDateCreation(LocalDateTime.now());
+		prospectRepository.save(p);
+
+		List<prospect> results = prospectRepository.findByCommercial(c);
+		for (prospect p1 : results) {
+			assertEquals("Huynh", p1.getCommercial().getNom());
+			assertEquals("Yvon", p1.getCommercial().getPrenom());
+		}
+
+	}
+
 }
