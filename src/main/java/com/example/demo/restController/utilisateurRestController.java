@@ -3,6 +3,7 @@ package com.example.demo.restController;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,4 +24,10 @@ public class utilisateurRestController {
     public List<utilisateur> getAllUtilisateurs() {
         return utilisateurService.getAllUtilisateurs();
     }
+
+    @GetMapping("/{id}")
+    public utilisateur getUtilisateurById(@PathVariable("id") Long id) {
+        return utilisateurService.getutilisateur(id);
+    }
+
 }
