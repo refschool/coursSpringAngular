@@ -86,4 +86,13 @@ class DemoApplicationTests {
 		for (utilisateur user : u)
 			assertEquals("Marie", user.getNom());
 	}
+
+	@Test
+	public void testFindUserByNomPrenom() {
+		List<utilisateur> u = userRepository.searchByNomPrenom("Huy", "Yvon");
+		for (utilisateur user : u) {
+			assertEquals("Huynh", user.getNom());
+			assertEquals("Yvon", user.getPrenom());
+		}
+	}
 }
