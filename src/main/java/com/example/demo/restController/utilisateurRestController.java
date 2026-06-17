@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +31,11 @@ public class utilisateurRestController {
     @GetMapping("/{id}")
     public utilisateur getUtilisateurById(@PathVariable("id") Long id) {
         return utilisateurService.getutilisateur(id);
+    }
+
+    @PostMapping
+    public utilisateur createUtilisateur(@RequestBody utilisateur u) {
+        return utilisateurService.saveUtilisateur(u);
     }
 
 }
