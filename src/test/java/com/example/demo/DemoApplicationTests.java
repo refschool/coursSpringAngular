@@ -72,4 +72,18 @@ class DemoApplicationTests {
 
 		assertTrue(users.size() == 2);
 	}
+
+	@Test
+	public void testFindUserByNom() {
+		List<utilisateur> u = userRepository.findByNom("Huynh");
+		for (utilisateur user : u)
+			assertEquals("Huynh", user.getNom());
+	}
+
+	@Test
+	public void testFindUserByNomContains() {
+		List<utilisateur> u = userRepository.findByNomContains("a");
+		for (utilisateur user : u)
+			assertEquals("Marie", user.getNom());
+	}
 }
