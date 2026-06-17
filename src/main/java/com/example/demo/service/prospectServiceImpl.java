@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entities.commercial;
 import com.example.demo.entities.prospect;
 import com.example.demo.repository.prospectRepository;
 
@@ -41,4 +42,8 @@ public class prospectServiceImpl implements prospectService {
         return prospectRepository.findAll();
     }
 
+    @Override
+    public List<prospect> findByCommercial(commercial commercial) {
+        return prospectRepository.findByCommercial(commercial);
+    }
 }

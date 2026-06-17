@@ -50,4 +50,30 @@ public class utilisateurServiceImpl implements utilisateurService {
     public List<utilisateur> getAllUtilisateurs() {
         return userRepository.findAll();
     }
+
+    @Override
+    public List<utilisateur> findByNom(String nom) {
+        return userRepository.findByNom(nom);
+    }
+
+    @Override
+    public List<utilisateur> findByNomContains(String nom) {
+        return userRepository.findByNomContains(nom);
+    }
+
+    @Override
+    public List<utilisateur> searchByNomPrenom(String nom, String prenom) {
+        return userRepository.searchByNomPrenom(nom, prenom);
+    }
+
+    @Override
+    public List<utilisateur> findAllOrderByNomAsc() {
+        return userRepository.findAllOrderByNomAsc();
+    }
+
+    @Override
+    public List<utilisateur> findAllOrderByNomAscPrenomDESC() {
+        return userRepository.findAllOrderByNomAscPrenomDESC();
+    }
+
 }
