@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.example.demo.entities.utilisateur;
 
+@RepositoryRestResource(path = "rest")
 public interface utilisateurRepository extends JpaRepository<utilisateur, Integer> {
     List<utilisateur> findByNom(String nom);
 
