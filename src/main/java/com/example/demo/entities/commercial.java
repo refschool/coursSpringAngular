@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class commercial {
 
@@ -18,6 +20,7 @@ public class commercial {
     private LocalDate dateEmbauche;
 
     @OneToMany(mappedBy = "commercial")
+    @JsonIgnore
     private List<prospect> prospects;
 
     public commercial() {
