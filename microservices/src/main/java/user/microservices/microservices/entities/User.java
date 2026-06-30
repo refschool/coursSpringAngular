@@ -1,7 +1,7 @@
 package user.microservices.microservices.entities;
 
 import java.util.List;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class User {
