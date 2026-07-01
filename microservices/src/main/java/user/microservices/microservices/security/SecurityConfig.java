@@ -39,21 +39,31 @@ public class SecurityConfig {
 
 }
 */
+
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authMgr) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http,
+            AuthenticationManager authMgr) throws Exception {
 
-        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        // JWTAuthenticationFilter authenticationFilter = new
+        // JWTAuthenticationFilter(authMgr);
+
+        http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(requests -> requests
+
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/all").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
-                .addFilterBefore(new JWTAuthenticationFilter(authMgr),
-                        UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+                .addFilter(new JWTAuthenticationFilter(authMgr))
+
+                .addFilterBefore(new JWTAuthorizationFilter(),
+                        JWTAuthenticationFilter.class);
 
         return http.build();
     }
