@@ -9,6 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/*
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -30,6 +31,26 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
                 // Pas oublier d'enlever le point virgule
 
+                .addFilterBefore(new JWTAuthenticationFilter(authMgr),
+                        UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+
+}
+*/
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authMgr) throws Exception {
+
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/login").permitAll()
+                        .anyRequest().authenticated())
                 .addFilterBefore(new JWTAuthenticationFilter(authMgr),
                         UsernamePasswordAuthenticationFilter.class);
 
