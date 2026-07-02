@@ -24,7 +24,7 @@ public class utilisateurRestController {
         this.utilisateurService = utilisateurService;
     }
 
-    @GetMapping
+    @GetMapping(path = "all")
     public List<utilisateur> getAllUtilisateurs() {
         return utilisateurService.getAllUtilisateurs();
     }
