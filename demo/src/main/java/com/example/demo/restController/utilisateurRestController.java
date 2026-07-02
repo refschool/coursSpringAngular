@@ -29,22 +29,22 @@ public class utilisateurRestController {
         return utilisateurService.getAllUtilisateurs();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("getbyid/{id}")
     public utilisateur getUtilisateurById(@PathVariable("id") Long id) {
         return utilisateurService.getutilisateur(id);
     }
 
-    @PostMapping
+    @PostMapping(path = "/adduser")
     public utilisateur createUtilisateur(@RequestBody utilisateur u) {
         return utilisateurService.saveUtilisateur(u);
     }
 
-    @PutMapping
+    @PutMapping(path = "/updateuser")
     public utilisateur updateUtilisateur(@RequestBody utilisateur u) {
         return utilisateurService.updateUtilisateur(u);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("deleteuser/{id}")
     public void deleteUtilisateur(@PathVariable("id") Long id) {
         utilisateurService.deleteutilisateurById(id);
     }

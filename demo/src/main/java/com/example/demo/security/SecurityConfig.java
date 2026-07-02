@@ -2,6 +2,7 @@ package com.example.demo.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,17 +15,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http,
-            AuthenticationManager authMgr) throws Exception {
-
-        http
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(requests -> requests
 
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().authenticated());
-
+                        .requestMatchers("/api/all/**").hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.GET, "/api/getbyid/**").hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.POST, "/api/adduser/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/updateuser/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/deluser/**").hasAuthority("ADMIN")
+                        .anyRequest().authenticated())
+                .addFilterBefore(new JWTAuthorizationFilter(),
+                        UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }
