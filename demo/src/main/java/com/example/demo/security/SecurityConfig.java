@@ -9,6 +9,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import jakarta.servlet.http.HttpServletRequest;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -18,6 +22,20 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> csrf.disable())
+
+                .cors(cors -> cors.configurationSource(new CorsConfigurationSource() {
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                        CorsConfiguration cors = new CorsConfiguration();
+
+                        cors.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+                        cors.setAllowedMethods(Collections.singletonList("*"));
+                        cors.setAllowedHeaders(Collections.singletonList("*"));
+                        cors.setExposedHeaders(Collections.singletonList("Authorization"));
+                        return cors;
+                    }
+                }))
+
                 .authorizeHttpRequests(requests -> requests
 
                         .requestMatchers("/api/all/**").hasAnyAuthority("ADMIN", "USER")
