@@ -9,4 +9,7 @@ import { Component } from '@angular/core';
 export class Binding {
   titre: String = "Demo Interpolation";
   status: boolean = false;
+  changerTitre() {
+    this.titre = "Nouveau Titre";
+  }
 }
