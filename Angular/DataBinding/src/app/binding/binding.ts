@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styles: ``,
 })
 export class Binding {
-  titre: String = "Demo Interpolation"
+  titre: String = "Demo Interpolation";
+  status: boolean = false;
 }
