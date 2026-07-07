@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-binding',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './binding.html',
   styles: ``,
 })
@@ -12,4 +13,5 @@ export class Binding {
   changerTitre() {
     this.titre = "Nouveau Titre";
   }
+  nom: String = "Yvon Huynh";
 }
