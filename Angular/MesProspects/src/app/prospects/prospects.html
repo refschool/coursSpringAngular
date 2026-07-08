@@ -4,14 +4,17 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Liste des Prospects</th>
+                        <th>Liste de Produits</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let prospect of prospects">
+                @for (produit of produits; track produit)
+                {
+                <tbody>
                     <tr>
-                        <td>{{prospect}}</td>
+                        <td>{{produit}}</td>
                     </tr>
                 </tbody>
+                }
             </table>
         </div>
     </div>
