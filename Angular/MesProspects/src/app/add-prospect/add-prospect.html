@@ -1,1 +1,53 @@
-<p>add-prospect works!</p>
+<div class="container">
+    <div>
+        <h2>Ajouter un Prospect :</h2>
+    </div>
+
+    <form>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>ID Prospect</label>
+            <input type="text" [(ngModel)]="newProspect.id_prospect" name="id_prospect" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Nom</label>
+            <input type="text" [(ngModel)]="newProspect.nom" name="nom" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Prénom</label>
+            <input type="text" [(ngModel)]="newProspect.prenom" name="prenom" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Email</label>
+            <input type="email" [(ngModel)]="newProspect.email" name="email" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Téléphone</label>
+            <input type="text" [(ngModel)]="newProspect.telephone" name="telephone" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Entreprise</label>
+            <input type="text" [(ngModel)]="newProspect.entreprise" name="entreprise" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Source</label>
+            <input type="text" [(ngModel)]="newProspect.source" name="source" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Date création</label>
+            <input type="date" [(ngModel)]="newProspect.date_creation" name="date_creation" class="form-control">
+        </div>
+
+        <div class="mt-2">
+            <button type="submit" (click)="addProspect()" class="btn btn-success">
+                Ajouter
+            </button>
+        </div>
+    </form>
+</div>
