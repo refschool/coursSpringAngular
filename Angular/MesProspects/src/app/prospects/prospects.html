@@ -2,6 +2,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <table class="table table-striped">
+                @if(prospects.length!=0){
                 <tr>
                     <th>Id</th>
                     <th>Nom</th>
@@ -12,11 +13,15 @@
                     <th>Source</th>
                     <th>Date Création</th>
                 </tr>
-
-                @for (prospect of prospects; track prospect.id_prospect) {
+                }
+                @for (prospect of prospects; track prospect.id_prospect; let index=$index; let nbr=$count; let first=
+                $first; let last=$last) {
+                @if(first){
+                <h1>Nombre: {{nbr}}</h1>
+                }
                 <tbody>
                     <tr>
-                        <td>{{ prospect.id_prospect }}</td>
+                        <td>{{ index+1 }}</td>
                         <td>{{ prospect.nom }}</td>
                         <td>{{ prospect.prenom }}</td>
                         <td>{{ prospect.email }}</td>
@@ -26,6 +31,12 @@
                         <td>{{ prospect.date_creation | date:'dd/MM/yyyy' }}</td>
                     </tr>
                 </tbody>
+                @if(last){
+                <h1>Fin</h1>
+                }
+                }
+                @empty{
+                <h1>Aucun produit trouvé !</h1>
                 }
             </table>
         </div>
