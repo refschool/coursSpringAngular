@@ -9,6 +9,7 @@ export class ProspectService {
   prospects: Prospect[];
 
   constructor() {
+    console.log("Service New");
     this.prospects = [
       {
         id_prospect: 1,
@@ -39,5 +40,11 @@ export class ProspectService {
 
   ajouterProspect(prospect: Prospect) {
     this.prospects.push(prospect);
+  }
+  supprimerProspect(pro: Prospect) {
+    const index = this.prospects.indexOf(pro, 0);
+    if (index > -1) {
+      this.prospects.splice(index, 1);
+    }
   }
 }

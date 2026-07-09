@@ -29,6 +29,7 @@
                         <td>{{ prospect.entreprise }}</td>
                         <td>{{ prospect.source }}</td>
                         <td>{{ prospect.date_creation | date:'dd/MM/yyyy' }}</td>
+                        <td><a class="btn btn-danger" (click)="supprimerProspect(prospect)">Supprimer</a></td>
                     </tr>
                 </tbody>
                 @if(last){

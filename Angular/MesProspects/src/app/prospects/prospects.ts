@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Prospect } from '../model/prospect.model';
 import { ProspectService } from '../services/prospect';
 
@@ -9,9 +9,18 @@ import { ProspectService } from '../services/prospect';
   imports: [CommonModule],
   templateUrl: './prospects.html'
 })
-export class Prospects {
-  prospects: Prospect[];
-  constructor(private produitService: ProspectService) {
-    this.prospects = produitService.listeProspects();
+export class Prospects implements OnInit {
+  prospects: Prospect[] = [];
+  constructor(private prospectService: ProspectService) { }
+  ngOnInit() {
+    this.prospects = this.prospectService.listeProspects();
   }
+  supprimerProspect(p: Prospect) {
+    //console.log(p);
+    let conf = confirm("Etes-vous sûr ?");
+    if (conf)
+      this.prospectService.supprimerProspect(p);
+  }
+
 }
+
