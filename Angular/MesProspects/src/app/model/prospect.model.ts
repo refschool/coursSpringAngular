@@ -1,4 +1,4 @@
-export class Prospect {
+export interface Prospect {
     id_prospect?: number;
     nom?: string;
     prenom?: string;
