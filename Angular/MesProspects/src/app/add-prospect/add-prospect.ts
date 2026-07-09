@@ -10,7 +10,7 @@ import { ProspectService } from '../services/prospect';
   styleUrl: './add-prospect.css',
 })
 export class AddProspect {
-  newProspect!: Prospect;
+  newProspect = new Prospect();
   constructor(private prospectService: ProspectService) { }
   addProspect() {
     //console.log(this.newProspect);
