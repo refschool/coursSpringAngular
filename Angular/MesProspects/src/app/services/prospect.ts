@@ -47,4 +47,9 @@ export class ProspectService {
       this.prospects.splice(index, 1);
     }
   }
+  prospect!: Prospect;
+  consulterProspect(id: number): Prospect {
+    this.prospect = this.prospects.find(p => p.id_prospect == id)!;
+    return this.prospect;
+  }
 }

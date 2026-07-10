@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Prospect } from '../model/prospect.model';
 import { ProspectService } from '../services/prospect';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-prospects',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './prospects.html'
 })
 export class Prospects implements OnInit {

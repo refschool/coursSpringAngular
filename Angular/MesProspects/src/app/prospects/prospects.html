@@ -30,6 +30,8 @@
                         <td>{{ prospect.source }}</td>
                         <td>{{ prospect.date_creation | date:'dd/MM/yyyy' }}</td>
                         <td><a class="btn btn-danger" (click)="supprimerProspect(prospect)">Supprimer</a></td>
+                        <td><a class="btn btn-success"
+                                [routerLink]="['/updateProspect',prospect.id_prospect]">Modifier</a></td>
                     </tr>
                 </tbody>
                 @if(last){
