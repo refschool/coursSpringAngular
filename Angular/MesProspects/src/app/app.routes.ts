@@ -9,4 +9,4 @@ export const routes: Routes = [
     { path: "add-prospect", component: AddProspect },
     { path: "", redirectTo: "prospects", pathMatch: "full" },
     { path: "updateProspect/:id", component: UpdateProspect }
-];
+]; 

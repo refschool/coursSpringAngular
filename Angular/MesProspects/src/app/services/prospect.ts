@@ -52,4 +52,13 @@ export class ProspectService {
     this.prospect = this.prospects.find(p => p.id_prospect == id)!;
     return this.prospect;
   }
+  updateProspect(prospect: Prospect) {
+
+    const index = this.prospects.indexOf(prospect, 0);
+
+    if (index > -1) {
+      this.prospects.splice(index, 1);      // supprimer l'ancien élément
+      this.prospects.splice(index, 0, prospect); // insérer le nouvel élément
+    }
+  }
 }
