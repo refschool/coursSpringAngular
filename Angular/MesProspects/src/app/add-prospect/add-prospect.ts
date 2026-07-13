@@ -29,10 +29,12 @@ export class AddProspect implements OnInit {
   }
 
   addProspect() {
-    this.newCommercial =
-      this.prospectService.consulterCommercial(this.newIdCommercial);
 
-    this.newProspect.commercial = this.newCommercial;
+    const c = this.prospectService.consulterCommercial(Number(this.newIdCommercial));
+
+    this.newProspect.commercial = c;
+
+    console.log("prospect :", this.newProspect);
 
     this.prospectService.ajouterProspect(this.newProspect);
 
