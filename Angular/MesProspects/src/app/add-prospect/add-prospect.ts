@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Prospect } from '../model/prospect.model';
 import { ProspectService } from '../services/prospect';
+import { Commercial } from '../model/commercial.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-prospect',
   imports: [FormsModule
@@ -12,14 +14,29 @@ import { ProspectService } from '../services/prospect';
 export class AddProspect implements OnInit {
   newProspect = new Prospect();
   message: string = "";
-  constructor(private prospectService: ProspectService) { }
-  ngOnInit(): void {
 
+  commercial!: Commercial[];
+  newIdCommercial!: number;
+  newCommercial!: Commercial;
+
+  constructor(
+    private prospectService: ProspectService,
+    private router: Router
+  ) { }
+
+  ngOnInit() {
+    this.commercial = this.prospectService.listeCommerciaux();
   }
+
   addProspect() {
-    console.log(this.newProspect);
+    this.newCommercial =
+      this.prospectService.consulterCommercial(this.newIdCommercial);
+
+    this.newProspect.commercial = this.newCommercial;
+
     this.prospectService.ajouterProspect(this.newProspect);
-    this.message = "Ajouté avec succès"
+
+    this.router.navigate(['prospects']);
   }
 
 }

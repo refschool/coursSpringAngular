@@ -2,7 +2,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <table class="table table-striped">
-                @if(prospects.length!=0){
+                @if(prospects.length != 0){
                 <tr>
                     <th>Id</th>
                     <th>Nom</th>
@@ -12,16 +12,20 @@
                     <th>Entreprise</th>
                     <th>Source</th>
                     <th>Date Création</th>
+                    <th>Commercial</th>
                 </tr>
                 }
-                @for (prospect of prospects; track prospect.id_prospect; let index=$index; let nbr=$count; let first=
-                $first; let last=$last) {
+
+                @for (prospect of prospects; track prospect.id_prospect; let index = $index; let nbr = $count; let first
+                = $first; let last = $last) {
+
                 @if(first){
-                <h1>Nombre: {{nbr}}</h1>
+                <h1>Nombre : {{ nbr }}</h1>
                 }
+
                 <tbody>
                     <tr>
-                        <td>{{ index+1 }}</td>
+                        <td>{{ index + 1 }}</td>
                         <td>{{ prospect.nom }}</td>
                         <td>{{ prospect.prenom }}</td>
                         <td>{{ prospect.email }}</td>
@@ -29,17 +33,28 @@
                         <td>{{ prospect.entreprise }}</td>
                         <td>{{ prospect.source }}</td>
                         <td>{{ prospect.date_creation | date:'dd/MM/yyyy' }}</td>
-                        <td><a class="btn btn-danger" (click)="supprimerProspect(prospect)">Supprimer</a></td>
-                        <td><a class="btn btn-success"
-                                [routerLink]="['/updateProspect',prospect.id_prospect]">Modifier</a></td>
+                        <td>{{ prospect.commercial?.nom }} {{ prospect.commercial?.prenom }}</td>
+
+                        <td>
+                            <a class="btn btn-danger me-2" (click)="supprimerProspect(prospect)">
+                                Supprimer
+                            </a>
+
+                            <a class="btn btn-success" [routerLink]="['/updateProspect', prospect.id_prospect]">
+                                Modifier
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
+
                 @if(last){
                 <h1>Fin</h1>
                 }
+
                 }
+
                 @empty{
-                <h1>Aucun produit trouvé !</h1>
+                <h1>Aucun prospect trouvé !</h1>
                 }
             </table>
         </div>

@@ -44,6 +44,20 @@
             <input type="date" [(ngModel)]="newProspect.date_creation" name="date_creation" class="form-control">
         </div>
 
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Commercial</label>
+            <select class="form-control form-control-lg" id="idCommercial" name="idCommercial"
+                [(ngModel)]="newIdCommercial">
+
+                @for (com of commercial; track com.id_commercial) {
+                <option [value]="com.id_commercial">
+                    {{ com.nom }} {{ com.prenom }}
+                </option>
+                }
+
+            </select>
+        </div>
+
         <div class="mt-2">
             <button type="submit" (click)="addProspect()" class="btn btn-success">
                 Ajouter

@@ -97,4 +97,12 @@ export class ProspectService {
       this.prospects.splice(index, 0, prospect); // insérer le nouvel élément
     }
   }
+
+  listeCommerciaux(): Commercial[] {
+    return this.commercial;
+  }
+
+  consulterCommercial(id: number): Commercial {
+    return this.commercial.find(com => com.id_commercial === id)!;
+  }
 }
