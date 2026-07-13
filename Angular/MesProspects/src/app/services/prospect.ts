@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Prospect } from '../model/prospect.model';
+import { Commercial } from '../model/commercial.model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +8,28 @@ import { Prospect } from '../model/prospect.model';
 export class ProspectService {
 
   prospects: Prospect[];
+  commercial: Commercial[];
 
   constructor() {
     console.log("Service New");
+    this.commercial = [
+      {
+        id_commercial: 1,
+        nom: "Dupont",
+        prenom: "Pierre",
+        email: "pierre.dupont@example.com",
+        telephone: "06 12 34 56 78",
+        date_embauche: new Date("2023-02-15")
+      },
+      {
+        id_commercial: 2,
+        nom: "Lefevre",
+        prenom: "Sophie",
+        email: "sophie.lefevre@example.com",
+        telephone: "07 98 76 54 32",
+        date_embauche: new Date("2024-06-10")
+      }
+    ];
     this.prospects = [
       {
         id_prospect: 1,
@@ -19,7 +39,15 @@ export class ProspectService {
         telephone: "06 45 23 89 12",
         entreprise: "TechNova",
         source: "LinkedIn",
-        date_creation: new Date("2025-11-12")
+        date_creation: new Date("2025-11-12"),
+        commercial: {
+          id_commercial: 1,
+          nom: "Dupont",
+          prenom: "Pierre",
+          email: "pierre.dupont@example.com",
+          telephone: "06 12 34 56 78",
+          date_embauche: new Date("2023-02-15")
+        }
       },
       {
         id_prospect: 2,
@@ -29,7 +57,15 @@ export class ProspectService {
         telephone: "07 81 22 45 90",
         entreprise: "GreenSoft",
         source: "Salon professionnel",
-        date_creation: new Date("2025-10-03")
+        date_creation: new Date("2025-10-03"),
+        commercial: {
+          id_commercial: 2,
+          nom: "Lefevre",
+          prenom: "Sophie",
+          email: "sophie.lefevre@example.com",
+          telephone: "07 98 76 54 32",
+          date_embauche: new Date("2024-06-10")
+        }
       }
     ];
   }

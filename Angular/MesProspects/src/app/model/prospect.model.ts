@@ -1,3 +1,5 @@
+import { Commercial } from "./commercial.model";
+
 export class Prospect {
     id_prospect?: number;
     nom?: string;
@@ -7,4 +9,5 @@ export class Prospect {
     entreprise?: string;
     source?: string;
     date_creation?: Date;
+    commercial?: Commercial;
 }
