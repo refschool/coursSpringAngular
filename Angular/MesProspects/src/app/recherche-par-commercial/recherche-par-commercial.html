@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
+        <label>Commercial</label>
+
+        <select class="form-control form-control-lg" id="idCommercial" name="idCommercial" [(ngModel)]="IdCommercial"
+            (change)="onChange()">
+
+            @for (com of commercial; track com.idCommercial) {
+            <option value="{{ com.idCommercial }}">
+                {{ com.nom }} {{ com.prenom }}
+            </option>
+            }
+        </select>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+
+            <table class="table table-striped">
+
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Entreprise</th>
+                    <th>Source</th>
+                    <th>Date Création</th>
+                    <th>Commercial</th>
+                </tr>
+
+                @for (prospect of prospects; track prospect.idProspect) {
+                <tbody>
+                    <tr>
+                        <td>{{ prospect.idProspect }}</td>
+                        <td>{{ prospect.nom }}</td>
+                        <td>{{ prospect.prenom }}</td>
+                        <td>{{ prospect.email }}</td>
+                        <td>{{ prospect.telephone }}</td>
+                        <td>{{ prospect.entreprise }}</td>
+                        <td>{{ prospect.source }}</td>
+                        <td>{{ prospect.dateCreation | date:'dd/MM/yyyy' }}</td>
+
+                        @if (prospect.commercial) {
+                        <td>{{ prospect.commercial.nom }} {{ prospect.commercial.prenom }}</td>
+                        } @else {
+                        <td>PAS DE COMMERCIAL</td>
+                        }
+
+                        <!-- Actions 
+              <td>
+                <a class="btn btn-danger" (click)="supprimerProspect(prospect)">Supprimer</a>
+              </td>
+              <td>
+                <a class="btn btn-success" [routerLink]="['/updateProspect', prospect.idProspect]">Modifier</a>
+              </td>
+              -->
+                    </tr>
+                </tbody>
+                }
+
+            </table>
+
+        </div>
+    </div>
+</div>

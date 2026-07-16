@@ -48,5 +48,8 @@ export class ProspectService {
     return this.http.get<CommercialWrapper>(this.commercialURL)
       .pipe(map(wrapper => wrapper._embedded?.commercials || []));
   }
-
+  rechercherParCommercial(idCommercial: number): Observable<Prospect[]> {
+    const url = `${this.apiURL}/by-commercial`;
+    return this.http.post<Prospect[]>(url, { idCommercial }, httpOptions);
+  }
 }
