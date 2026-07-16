@@ -59,4 +59,10 @@ public class prospectRestController {
         }
         return prospectService.findByCommercial(realCommercial);
     }
+
+    @RequestMapping(value = "/prodsByName/{nom}", method = RequestMethod.GET)
+    public List<prospect> findByNomProspectContains(@PathVariable("nom") String nom) {
+        return prospectService.findByNomProspectContains(nom);
+    }
+
 }

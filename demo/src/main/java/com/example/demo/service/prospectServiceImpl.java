@@ -57,4 +57,9 @@ public class prospectServiceImpl implements prospectService {
     public List<prospect> findByCommercial(commercial commercial) {
         return prospectRepository.findByCommercial(commercial);
     }
+
+    @Override
+    public List<prospect> findByNomProspectContains(String nom) {
+        return prospectRepository.findByNomProspectContains(nom);
+    }
 }

@@ -20,4 +20,6 @@ public interface prospectService {
     List<prospect> getAllprospects();
 
     List<prospect> findByCommercial(commercial commercial);
+
+    List<prospect> findByNomProspectContains(@Param("nom") String nom);
 }
