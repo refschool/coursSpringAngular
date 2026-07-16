@@ -1,5 +1,5 @@
 export class Commercial {
-    id_commercial?: number;
+    idCommercial!: number;
     nom?: string;
     prenom?: string;
     email?: string;

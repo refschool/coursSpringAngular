@@ -21,10 +21,12 @@ public class prospect {
     @JoinColumn(name = "id_commercial")
     private commercial commercial;
 
-    @ManyToOne
-    @JoinColumn(name = "id_etat_avancement")
-    private etatAvancement etatAvancement;
-
+    /*
+     * @ManyToOne
+     * 
+     * @JoinColumn(name = "id_etat_avancement")
+     * private etatAvancement etatAvancement;
+     */
     private LocalDateTime dateCreation;
 
     public prospect() {
@@ -95,14 +97,15 @@ public class prospect {
         this.commercial = commercial;
     }
 
-    public etatAvancement getEtatAvancement() {
-        return etatAvancement;
-    }
-
-    public void setEtatAvancement(etatAvancement etatAvancement) {
-        this.etatAvancement = etatAvancement;
-    }
-
+    /*
+     * public etatAvancement getEtatAvancement() {
+     * return etatAvancement;
+     * }
+     * 
+     * public void setEtatAvancement(etatAvancement etatAvancement) {
+     * this.etatAvancement = etatAvancement;
+     * }
+     */
     public LocalDateTime getDateCreation() {
         return dateCreation;
     }

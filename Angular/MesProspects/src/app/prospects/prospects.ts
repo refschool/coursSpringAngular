@@ -1,27 +1,59 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Prospect } from '../model/prospect.model';
-import { ProspectService } from '../services/prospect';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { Prospect } from '../model/prospect.model';
+import { Commercial } from '../model/commercial.model';
+import { ProspectService } from '../services/prospect';
 
 @Component({
   selector: 'app-prospects',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './prospects.html'
 })
 export class Prospects implements OnInit {
+
   prospects: Prospect[] = [];
-  constructor(private prospectService: ProspectService) { }
-  ngOnInit() {
-    this.prospects = this.prospectService.listeProspects();
+  commercial: Commercial[] = [];
+
+  constructor(
+    private prospectService: ProspectService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.chargerProspects();
+    this.chargerCommerciaux();
   }
-  supprimerProspect(p: Prospect) {
-    //console.log(p);
-    let conf = confirm("Etes-vous sûr ?");
-    if (conf)
-      this.prospectService.supprimerProspect(p);
+
+  trackByProspectId(index: number, prospect: Prospect): number {
+    return prospect.idProspect;
+  }
+
+  chargerProspects(): void {
+    this.prospectService.listeProspect().subscribe(prospects => {
+      this.prospects = prospects;
+      this.cdr.detectChanges();
+    });
+  }
+
+  chargerCommerciaux(): void {
+    this.prospectService.listeCommerciaux().subscribe(commercial => {
+      this.commercial = commercial;
+      this.cdr.detectChanges();
+    });
+  }
+
+  naviguerVersModification(prospect: Prospect): void {
+    this.router.navigate(['/updateProspect', prospect.idProspect]);
+  }
+
+  supprimerProspect(prospect: Prospect): void {
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce prospect ?")) {
+      this.prospectService.supprimerProspect(prospect.idProspect)
+        .subscribe(() => this.chargerProspects());
+    }
   }
 
 }
-

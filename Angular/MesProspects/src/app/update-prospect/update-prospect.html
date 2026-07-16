@@ -6,8 +6,7 @@
     <form>
         <div hidden class="col-sm-2 col-md-2 col-lg-2">
             <label>ID Prospect</label>
-            <input readonly type="text" [(ngModel)]="currentProspect.id_prospect" name="id_prospect"
-                class="form-control">
+            <input readonly type="text" [(ngModel)]="currentProspect.idProspect" name="idProspect" class="form-control">
         </div>
 
         <div class="col-sm-4 col-md-4 col-lg-4">
@@ -42,8 +41,7 @@
 
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Date création</label>
-            <input type="date" [ngModel]="currentProspect.date_creation | date:'yyyy-MM-dd'"
-                (ngModelChange)="currentProspect.date_creation = $event" name="date_creation" class="form-control">
+            <input type="date" [(ngModel)]="currentProspect.dateCreation" name="dateCreation" class="form-control">
         </div>
 
         <div class="col-sm-4 col-md-4 col-lg-4">
@@ -52,8 +50,8 @@
             <select class="form-control form-control-lg" id="idCommercial" name="idCommercial"
                 [(ngModel)]="updatedCommercialId">
 
-                @for (com of commercial; track com.id_commercial) {
-                <option [value]="com.id_commercial">
+                @for (com of commercial; track com.idCommercial) {
+                <option [value]="com.idCommercial">
                     {{ com.nom }} {{ com.prenom }}
                 </option>
                 }
@@ -61,11 +59,11 @@
             </select>
         </div>
 
-
         <div class="mt-2">
             <button type="button" (click)="updateProspect()" class="btn btn-success">
                 Modifier
             </button>
         </div>
+
     </form>
 </div>

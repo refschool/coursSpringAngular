@@ -1,108 +1,50 @@
 import { Injectable } from '@angular/core';
 import { Prospect } from '../model/prospect.model';
 import { Commercial } from '../model/commercial.model';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProspectService {
 
-  prospects: Prospect[];
-  commercial: Commercial[];
+  apiURL: string = 'http://localhost:8080/utilisateur/api/prospects';
+  commercialURL: string = 'http://localhost:8080/utilisateur/api/commercials';
 
-  constructor() {
-    console.log("Service New");
-    this.commercial = [
-      {
-        id_commercial: 1,
-        nom: "Dupont",
-        prenom: "Pierre",
-        email: "pierre.dupont@example.com",
-        telephone: "06 12 34 56 78",
-        date_embauche: new Date("2023-02-15")
-      },
-      {
-        id_commercial: 2,
-        nom: "Lefevre",
-        prenom: "Sophie",
-        email: "sophie.lefevre@example.com",
-        telephone: "07 98 76 54 32",
-        date_embauche: new Date("2024-06-10")
-      }
-    ];
-    this.prospects = [
-      {
-        id_prospect: 1,
-        nom: "Durand",
-        prenom: "Alice",
-        email: "alice.durand@example.com",
-        telephone: "06 45 23 89 12",
-        entreprise: "TechNova",
-        source: "LinkedIn",
-        date_creation: new Date("2025-11-12"),
-        commercial: {
-          id_commercial: 1,
-          nom: "Dupont",
-          prenom: "Pierre",
-          email: "pierre.dupont@example.com",
-          telephone: "06 12 34 56 78",
-          date_embauche: new Date("2023-02-15")
-        }
-      },
-      {
-        id_prospect: 2,
-        nom: "Martin",
-        prenom: "Lucas",
-        email: "lucas.martin@example.com",
-        telephone: "07 81 22 45 90",
-        entreprise: "GreenSoft",
-        source: "Salon professionnel",
-        date_creation: new Date("2025-10-03"),
-        commercial: {
-          id_commercial: 2,
-          nom: "Lefevre",
-          prenom: "Sophie",
-          email: "sophie.lefevre@example.com",
-          telephone: "07 98 76 54 32",
-          date_embauche: new Date("2024-06-10")
-        }
-      }
-    ];
+  constructor(private http: HttpClient) {
+  }
+  listeProspect(): Observable<Prospect[]> {
+    return this.http.get<Prospect[]>(this.apiURL);
+  }
+  ajouterProspect(prospect: Prospect): Observable<Prospect> {
+    return this.http.post<Prospect>(this.apiURL, prospect, httpOptions);
+  }
+  supprimerProspect(id: number): Observable<void> {
+    const url = `${this.apiURL}/${id}`;
+
+    return this.http.delete<void>(url, httpOptions);
+  }
+  consulterProspect(id: number): Observable<Prospect> {
+    const url = `${this.apiURL}/${id}`;
+
+    return this.http.get<Prospect>(url);
+  }
+  updateProspect(prospect: Prospect): Observable<Prospect> {
+    return this.http.put<Prospect>(
+      this.apiURL,
+      prospect,
+      httpOptions
+    );
   }
 
-  listeProspects(): Prospect[] {
-    return this.prospects;
+  listeCommerciaux(): Observable<Commercial[]> {
+    return this.http.get<Commercial[]>(this.commercialURL);
   }
 
-  ajouterProspect(prospect: Prospect) {
-    this.prospects.push(prospect);
-  }
-  supprimerProspect(pro: Prospect) {
-    const index = this.prospects.indexOf(pro, 0);
-    if (index > -1) {
-      this.prospects.splice(index, 1);
-    }
-  }
-  prospect!: Prospect;
-  consulterProspect(id: number): Prospect {
-    this.prospect = this.prospects.find(p => p.id_prospect == id)!;
-    return this.prospect;
-  }
-  updateProspect(prospect: Prospect) {
 
-    const index = this.prospects.indexOf(prospect, 0);
-
-    if (index > -1) {
-      this.prospects.splice(index, 1);      // supprimer l'ancien élément
-      this.prospects.splice(index, 0, prospect); // insérer le nouvel élément
-    }
-  }
-
-  listeCommerciaux(): Commercial[] {
-    return this.commercial;
-  }
-
-  consulterCommercial(id: number): Commercial {
-    return this.commercial.find(com => com.id_commercial === id)!;
-  }
 }

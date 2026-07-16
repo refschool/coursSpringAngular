@@ -1,44 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Prospect } from '../model/prospect.model';
-import { ProspectService } from '../services/prospect';
-import { Commercial } from '../model/commercial.model';
 import { Router } from '@angular/router';
+import { Prospect } from '../model/prospect.model';
+import { Commercial } from '../model/commercial.model';
+import { ProspectService } from '../services/prospect';
+
 @Component({
   selector: 'app-add-prospect',
-  imports: [FormsModule
-  ],
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './add-prospect.html',
-  styleUrl: './add-prospect.css',
+  styleUrl: './add-prospect.css'
 })
 export class AddProspect implements OnInit {
-  newProspect = new Prospect();
-  message: string = "";
 
-  commercial!: Commercial[];
+  newProspect = new Prospect();
+  commercial: Commercial[] = [];
   newIdCommercial!: number;
-  newCommercial!: Commercial;
+
+  message = "";
 
   constructor(
     private prospectService: ProspectService,
     private router: Router
   ) { }
 
-  ngOnInit() {
-    this.commercial = this.prospectService.listeCommerciaux();
+  ngOnInit(): void {
+    this.prospectService.listeCommerciaux().subscribe(commercial => {
+      this.commercial = commercial;
+      this.newIdCommercial = commercial[0].idCommercial;
+    });
   }
 
-  addProspect() {
+  addProspect(): void {
 
-    const c = this.prospectService.consulterCommercial(Number(this.newIdCommercial));
+    this.newProspect.commercial = {
+      idCommercial: this.newIdCommercial
+    } as Commercial;
 
-    this.newProspect.commercial = c;
+    this.prospectService.ajouterProspect(this.newProspect)
+      .subscribe(() => {
+        this.message = "Prospect ajouté avec succès !";
+        this.router.navigate(['prospects']);
+      });
 
-    console.log("prospect :", this.newProspect);
-
-    this.prospectService.ajouterProspect(this.newProspect);
-
-    this.router.navigate(['prospects']);
   }
 
 }

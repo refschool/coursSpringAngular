@@ -1,62 +1,45 @@
-<div class="container">
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <table class="table table-striped">
-                @if(prospects.length != 0){
-                <tr>
-                    <th>Id</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Email</th>
-                    <th>Téléphone</th>
-                    <th>Entreprise</th>
-                    <th>Source</th>
-                    <th>Date Création</th>
-                    <th>Commercial</th>
-                </tr>
-                }
+<p>Nombre : {{ prospects?.length ?? 0 }}</p>
 
-                @for (prospect of prospects; track prospect.id_prospect; let index = $index; let nbr = $count; let first
-                = $first; let last = $last) {
+<table class="table table-striped" *ngIf="prospects?.length; else emptyState">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Entreprise</th>
+            <th>Source</th>
+            <th>Date création</th>
+            <th>Commercial</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
-                @if(first){
-                <h1>Nombre : {{ nbr }}</h1>
-                }
+    <tbody>
+        <tr *ngFor="let prospect of prospects; trackBy: trackByProspectId">
+            <td>{{ prospect.idProspect }}</td>
+            <td>{{ prospect.nom }}</td>
+            <td>{{ prospect.prenom }}</td>
+            <td>{{ prospect.email }}</td>
+            <td>{{ prospect.telephone }}</td>
+            <td>{{ prospect.entreprise }}</td>
+            <td>{{ prospect.source }}</td>
+            <td>{{ prospect.dateCreation | date:'dd/MM/yyyy' }}</td>
+            <td>{{ prospect.commercial?.nom || '—' }}</td>
+            <td>
+                <a class="btn btn-danger me-2" (click)="supprimerProspect(prospect)">
+                    Supprimer
+                </a>
 
-                <tbody>
-                    <tr>
-                        <td>{{ index + 1 }}</td>
-                        <td>{{ prospect.nom }}</td>
-                        <td>{{ prospect.prenom }}</td>
-                        <td>{{ prospect.email }}</td>
-                        <td>{{ prospect.telephone }}</td>
-                        <td>{{ prospect.entreprise }}</td>
-                        <td>{{ prospect.source }}</td>
-                        <td>{{ prospect.date_creation | date:'dd/MM/yyyy' }}</td>
-                        <td>{{ prospect.commercial?.nom }} {{ prospect.commercial?.prenom }}</td>
+                <button class="btn btn-success" type="button" (click)="naviguerVersModification(prospect)">
+                    Modifier
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-                        <td>
-                            <a class="btn btn-danger me-2" (click)="supprimerProspect(prospect)">
-                                Supprimer
-                            </a>
-
-                            <a class="btn btn-success" [routerLink]="['/updateProspect', prospect.id_prospect]">
-                                Modifier
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-
-                @if(last){
-                <h1>Fin</h1>
-                }
-
-                }
-
-                @empty{
-                <h1>Aucun prospect trouvé !</h1>
-                }
-            </table>
-        </div>
-    </div>
-</div>
+<ng-template #emptyState>
+    <p>Aucun prospect trouvé !</p>
+</ng-template>

@@ -1,13 +1,13 @@
 import { Commercial } from "./commercial.model";
 
 export class Prospect {
-    id_prospect?: number;
+    idProspect!: number;
     nom?: string;
     prenom?: string;
     email?: string;
     telephone?: string;
     entreprise?: string;
     source?: string;
-    date_creation?: Date;
+    dateCreation?: Date;
     commercial?: Commercial;
 }

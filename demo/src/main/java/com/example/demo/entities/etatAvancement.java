@@ -13,9 +13,12 @@ public class etatAvancement {
     private String libelle;
     private Integer ordreEtape;
 
-    @OneToMany(mappedBy = "etatAvancement")
-    private List<prospect> prospects;
-
+    /*
+     * /
+     * 
+     * @OneToMany(mappedBy = "etatAvancement")
+     * private List<prospect> prospects;
+     */
     public etatAvancement() {
         super();
     }
@@ -43,14 +46,14 @@ public class etatAvancement {
     public void setOrdreEtape(Integer ordreEtape) {
         this.ordreEtape = ordreEtape;
     }
-
-    public List<prospect> getProspects() {
-        return prospects;
-    }
-
-    public void setProspects(List<prospect> prospects) {
-        this.prospects = prospects;
-    }
-
+    /*
+     * public List<prospect> getProspects() {
+     * return prospects;
+     * }
+     * 
+     * public void setProspects(List<prospect> prospects) {
+     * this.prospects = prospects;
+     * }
+     */
     // Getters / Setters
 }

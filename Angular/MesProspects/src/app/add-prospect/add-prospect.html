@@ -4,11 +4,6 @@
     </div>
 
     <form>
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>ID Prospect</label>
-            <input type="text" [(ngModel)]="newProspect.id_prospect" name="id_prospect" class="form-control">
-        </div>
-
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Nom</label>
             <input type="text" [(ngModel)]="newProspect.nom" name="nom" class="form-control">
@@ -41,7 +36,7 @@
 
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Date création</label>
-            <input type="date" [(ngModel)]="newProspect.date_creation" name="date_creation" class="form-control">
+            <input type="date" [(ngModel)]="newProspect.dateCreation" name="dateCreation" class="form-control">
         </div>
 
         <div class="col-sm-4 col-md-4 col-lg-4">
@@ -49,8 +44,8 @@
             <select class="form-control form-control-lg" id="idCommercial" name="idCommercial"
                 [(ngModel)]="newIdCommercial">
 
-                @for (com of commercial; track com.id_commercial) {
-                <option [value]="com.id_commercial">
+                @for (com of commercial; track com.idCommercial) {
+                <option [value]="com.idCommercial">
                     {{ com.nom }} {{ com.prenom }}
                 </option>
                 }
@@ -59,7 +54,7 @@
         </div>
 
         <div class="mt-2">
-            <button type="submit" (click)="addProspect()" class="btn btn-success">
+            <button type="button" (click)="addProspect()" class="btn btn-success">
                 Ajouter
             </button>
 

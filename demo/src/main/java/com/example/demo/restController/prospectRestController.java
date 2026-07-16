@@ -19,6 +19,36 @@ public class prospectRestController {
         this.commercialService = commercialService;
     }
 
+    // GET ALL
+    @GetMapping
+    public List<prospect> getAllProspects() {
+        return prospectService.getAllprospects();
+    }
+
+    // GET BY ID
+    @GetMapping("/{id}")
+    public prospect getProspectById(@PathVariable Integer id) {
+        return prospectService.getprospect(id);
+    }
+
+    // ADD
+    @PostMapping
+    public prospect addProspect(@RequestBody prospect p) {
+        return prospectService.saveprospect(p);
+    }
+
+    // UPDATE
+    @PutMapping
+    public prospect updateProspect(@RequestBody prospect p) {
+        return prospectService.updateprospect(p);
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    public void deleteProspect(@PathVariable Integer id) {
+        prospectService.deleteprospect(id);
+    }
+
     @PostMapping("/by-commercial")
     public List<prospect> getProspectsByCommercial(@RequestBody commercial c) {
 

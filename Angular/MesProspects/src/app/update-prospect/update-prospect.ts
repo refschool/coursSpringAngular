@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Prospect } from '../model/prospect.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProspectService } from '../services/prospect';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
+import { Prospect } from '../model/prospect.model';
 import { Commercial } from '../model/commercial.model';
+import { ProspectService } from '../services/prospect';
 
 @Component({
   selector: 'app-update-prospect',
@@ -16,6 +17,8 @@ import { Commercial } from '../model/commercial.model';
 export class UpdateProspect implements OnInit {
 
   currentProspect = new Prospect();
+  commercial: Commercial[] = [];
+  updatedCommercialId!: number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -23,29 +26,30 @@ export class UpdateProspect implements OnInit {
     private prospectService: ProspectService
   ) { }
 
-  commercial!: Commercial[];
-  updatedCommercialId!: number;
-
   ngOnInit(): void {
-    this.commercial = this.prospectService.listeCommerciaux();
+    const id = Number(this.activatedRoute.snapshot.params['id']);
 
-    this.currentProspect =
-      this.prospectService.consulterProspect(
-        this.activatedRoute.snapshot.params['id']
-      );
-
-    this.updatedCommercialId =
-      this.currentProspect.commercial!.id_commercial!;
+    this.prospectService.listeCommerciaux().subscribe(commercial => {
+      this.commercial = commercial;
+      this.chargerProspect(id);
+    });
   }
-  updateProspect() {
-    this.currentProspect.commercial =
-      this.prospectService.consulterCommercial(Number(this.updatedCommercialId));
 
-    console.log(this.currentProspect);
+  chargerProspect(id: number): void {
+    this.prospectService.consulterProspect(id).subscribe(prospect => {
+      this.currentProspect = prospect;
+      this.updatedCommercialId = prospect.commercial?.idCommercial!;
+    });
+  }
 
-    this.prospectService.updateProspect(this.currentProspect);
+  updateProspect(): void {
 
-    this.router.navigate(['prospects']);
+    this.currentProspect.commercial = {
+      idCommercial: this.updatedCommercialId
+    } as Commercial;
+
+    this.prospectService.updateProspect(this.currentProspect)
+      .subscribe(() => this.router.navigate(['prospects']));
   }
 
 }
