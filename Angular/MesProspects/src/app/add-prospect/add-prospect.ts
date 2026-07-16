@@ -26,10 +26,11 @@ export class AddProspect implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.prospectService.listeCommerciaux().subscribe(commercial => {
-      this.commercial = commercial;
-      this.newIdCommercial = commercial[0].idCommercial;
-    });
+    this.prospectService.listeCommerciaux().
+      subscribe(commercials => {
+        this.commercial = commercials;
+      }
+      );
   }
 
   addProspect(): void {

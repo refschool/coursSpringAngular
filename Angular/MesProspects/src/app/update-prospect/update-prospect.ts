@@ -27,19 +27,16 @@ export class UpdateProspect implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id = Number(this.activatedRoute.snapshot.params['id']);
-
-    this.prospectService.listeCommerciaux().subscribe(commercial => {
-      this.commercial = commercial;
-      this.chargerProspect(id);
-    });
-  }
-
-  chargerProspect(id: number): void {
-    this.prospectService.consulterProspect(id).subscribe(prospect => {
-      this.currentProspect = prospect;
-      this.updatedCommercialId = prospect.commercial?.idCommercial!;
-    });
+    this.prospectService.listeCommerciaux().
+      subscribe(commercials => {
+        this.commercial = commercials;
+      }
+      );
+    this.prospectService.consulterProspect(this.activatedRoute.snapshot.params['id']).
+      subscribe(prod => {
+        this.currentProspect = prod;
+        this.updatedCommercialId = this.currentProspect.commercial?.idCommercial!;
+      });
   }
 
   updateProspect(): void {

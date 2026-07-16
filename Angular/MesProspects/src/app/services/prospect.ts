@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Prospect } from '../model/prospect.model';
 import { Commercial } from '../model/commercial.model';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CommercialWrapper } from '../model/CommercialWrapped.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,7 +16,7 @@ const httpOptions = {
 export class ProspectService {
 
   apiURL: string = 'http://localhost:8080/utilisateur/api/prospects';
-  commercialURL: string = 'http://localhost:8080/utilisateur/api/commercials';
+  commercialURL: string = 'http://localhost:8080/utilisateur/commercial';
 
   constructor(private http: HttpClient) {
   }
@@ -43,8 +45,8 @@ export class ProspectService {
   }
 
   listeCommerciaux(): Observable<Commercial[]> {
-    return this.http.get<Commercial[]>(this.commercialURL);
+    return this.http.get<CommercialWrapper>(this.commercialURL)
+      .pipe(map(wrapper => wrapper._embedded?.commercials || []));
   }
-
 
 }
