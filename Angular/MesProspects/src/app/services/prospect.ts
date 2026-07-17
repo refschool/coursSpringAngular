@@ -52,4 +52,9 @@ export class ProspectService {
     const url = `${this.apiURL}/by-commercial`;
     return this.http.post<Prospect[]>(url, { idCommercial }, httpOptions);
   }
+  rechercherParNom(nom: string): Observable<Prospect[]> {
+    const url = `${this.apiURL}/prospectsByName/${nom}`;
+    return this.http.get<Prospect[]>(url);
+  }
+
 }

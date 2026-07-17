@@ -3,7 +3,7 @@ import { Prospects } from './prospects/prospects';
 import { AddProspect } from './add-prospect/add-prospect';
 import { UpdateProspect } from './update-prospect/update-prospect';
 import { RechercheParCommercial } from './recherche-par-commercial/recherche-par-commercial';
-
+import { RechercheParNom } from './recherche-par-nom/recherche-par-nom';
 
 export const routes: Routes = [
     { path: "prospects", component: Prospects },
@@ -11,4 +11,5 @@ export const routes: Routes = [
     { path: "", redirectTo: "prospects", pathMatch: "full" },
     { path: "updateProspect/:id", component: UpdateProspect },
     { path: "rechercheParCommercial", component: RechercheParCommercial },
+    { path: "rechercheParNom", component: RechercheParNom },
 ]; 
