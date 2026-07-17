@@ -11,21 +11,23 @@ import { ProspectService } from '../services/prospect';
   styles: ``,
 })
 export class RechercheParNom implements OnInit {
+
   nomProspect: string = '';
   prospects!: Prospect[];
-
+  allProspects!: Prospect[];
+  searchTerm!: string;
 
   constructor(private prospectService: ProspectService,
     private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    /*this.prospectService.listeProspect().subscribe(prospects => {
+    this.prospectService.listeProspect().subscribe(prospects => {
       console.log(prospects);
-      this.prospects = prospects;
+      this.allProspects = prospects;
     });
-    */
-    this.prospects = [];
+
+
   }
   rechercherProspects() {
     if (this.nomProspect)
@@ -45,6 +47,11 @@ export class RechercheParNom implements OnInit {
       });
 
   };
+  onKeyUp(filterText: string) {
+    this.prospects = this.allProspects.filter(item =>
+      item.nom!.toLowerCase().includes(filterText));
+  }
+
 };
 
 
