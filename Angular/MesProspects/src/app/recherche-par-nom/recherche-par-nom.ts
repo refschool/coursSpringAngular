@@ -3,10 +3,11 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Prospect } from '../model/prospect.model';
 import { ProspectService } from '../services/prospect';
+import { SearchFilterPipe } from '../search-filter-pipe';
 
 @Component({
   selector: 'app-recherche-par-nom',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, SearchFilterPipe],
   templateUrl: './recherche-par-nom.html',
   styles: ``,
 })
@@ -24,7 +25,8 @@ export class RechercheParNom implements OnInit {
   ngOnInit(): void {
     this.prospectService.listeProspect().subscribe(prospects => {
       console.log(prospects);
-      this.allProspects = prospects;
+      // this.allProspects = prospects;
+      this.prospects = prospects;
     });
 
 

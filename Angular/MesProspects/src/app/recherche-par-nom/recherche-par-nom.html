@@ -8,7 +8,8 @@
 
         <div class="form-group mx-sm-3 mb-2 mt-2 ">
             <label>Nom Prospect en tapant</label>
-            <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)">
+            <!-- <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)"> -->
+            <input #nom [(ngModel)]="searchTerm" name="searchTerm" class="form-control">
         </div>
     </form>
     <div class="card shadow mb-4">
@@ -28,7 +29,8 @@
                     <th>Commercial</th>
                 </tr>
 
-                @for (prospect of prospects; track prospect.idProspect) {
+                <!-- @for (prospect of prospects; track prospect.idProspect) { -->
+                @for (prospect of prospects | searchFilter: searchTerm ; track prospect.idProspect) {
                 <tbody>
                     <tr>
                         <td>{{ prospect.idProspect }}</td>
