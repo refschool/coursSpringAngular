@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 export class UpdateCommercial implements OnInit {
   @Input()
   commercial!: Commercial;
+  @Input()
+  ajout!: boolean;
   @Output()
   commercialUpdated = new EventEmitter<Commercial>();
 

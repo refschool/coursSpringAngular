@@ -1,6 +1,7 @@
 <div class="container">
     <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
-        <app-update-commercial [commercial]="updatedCommercial" (commercialUpdated)="commercialUpdated($event)">
+        <app-update-commercial [commercial]="updatedCommercial" (commercialUpdated)="commercialUpdated($event)"
+            [ajout]="ajout">
         </app-update-commercial>
     </div>
     <div class="card shadow mb-4">
@@ -26,6 +27,7 @@
                         <td>{{ com.email }}</td>
                         <td>{{ com.telephone }}</td>
                         <td>{{ com.dateEmbauche | date:'dd/MM/yyyy' }}</td>
+                        <td><a class="btn btn-success" (click)="updateCommercial(com)">Editer</a></td>
                     </tr>
                 </tbody>
                 }

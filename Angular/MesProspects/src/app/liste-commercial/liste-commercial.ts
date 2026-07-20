@@ -13,7 +13,7 @@ import { UpdateCommercial } from '../update-commercial/update-commercial';
 export class ListeCommercial implements OnInit {
   commercial!: Commercial[];
   updatedCommercial: Commercial = { "idCommercial": null, "nom": "", "prenom": "", "email": "", "telephone": "", "dateEmbauche": new Date() };
-
+  ajout: boolean = true;
   constructor(private prospectService: ProspectService,
     private cdr: ChangeDetectorRef) { }
 
@@ -38,5 +38,9 @@ export class ListeCommercial implements OnInit {
         console.log(commercial);
         this.cdr.detectChanges();
       });
+  }
+  updateCommercial(commercial: Commercial) {
+    this.updatedCommercial = commercial;
+    this.ajout = false;
   }
 }
