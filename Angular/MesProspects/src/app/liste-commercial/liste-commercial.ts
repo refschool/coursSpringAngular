@@ -2,10 +2,11 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Commercial } from '../model/commercial.model';
 import { ProspectService } from '../services/prospect';
 import { CommonModule } from '@angular/common';
+import { UpdateCommercial } from '../update-commercial/update-commercial';
 
 @Component({
   selector: 'app-liste-commercial',
-  imports: [CommonModule],
+  imports: [CommonModule, UpdateCommercial],
   templateUrl: './liste-commercial.html',
   styles: ``,
 })
