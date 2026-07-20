@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Commercial } from '../model/commercial.model';
 import { FormsModule } from '@angular/forms';
 
@@ -11,6 +11,9 @@ import { FormsModule } from '@angular/forms';
 export class UpdateCommercial implements OnInit {
   @Input()
   commercial!: Commercial;
+  @Output()
+  commercialUpdated = new EventEmitter<Commercial>();
+
 
   constructor() { }
 
@@ -19,6 +22,7 @@ export class UpdateCommercial implements OnInit {
   }
 
   saveCommercial() {
-
+    this.commercialUpdated.emit(this.commercial);
   }
 }
+

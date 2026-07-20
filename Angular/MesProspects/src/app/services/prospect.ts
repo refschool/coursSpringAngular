@@ -17,6 +17,7 @@ export class ProspectService {
 
   apiURL: string = 'http://localhost:8080/utilisateur/api/prospects';
   commercialURL: string = 'http://localhost:8080/utilisateur/commercial';
+  apiURL2: string = 'http://localhost:8080/utilisateur/api/commercials';
 
   constructor(private http: HttpClient) {
   }
@@ -56,5 +57,10 @@ export class ProspectService {
     const url = `${this.apiURL}/prospectsByName/${nom}`;
     return this.http.get<Prospect[]>(url);
   }
+  ajouterCommercial(commercial: Commercial): Observable<Commercial> {
+    const url = `${this.apiURL2}/addcommercial`;
+    return this.http.post<Commercial>(url, commercial, httpOptions);
+  }
+
 
 }

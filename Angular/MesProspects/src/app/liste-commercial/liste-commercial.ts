@@ -12,7 +12,7 @@ import { UpdateCommercial } from '../update-commercial/update-commercial';
 })
 export class ListeCommercial implements OnInit {
   commercial!: Commercial[];
-  updatedCommercial: Commercial = { "idCommercial": 0, "nom": "", "prenom": "", "email": "", "telephone": "", "dateEmbauche": new Date() };
+  updatedCommercial: Commercial = { "idCommercial": null, "nom": "", "prenom": "", "email": "", "telephone": "", "dateEmbauche": new Date() };
 
   constructor(private prospectService: ProspectService,
     private cdr: ChangeDetectorRef) { }
@@ -25,5 +25,18 @@ export class ListeCommercial implements OnInit {
         this.cdr.detectChanges();
       });
   }
-}
+  commercialUpdated(commercial: Commercial) {
+    console.log("Commercial updated event", commercial);
+    this.prospectService.ajouterCommercial(commercial).
+      subscribe(() => this.chargerCommerciaux());
 
+  }
+  chargerCommerciaux() {
+    this.prospectService.listeCommerciaux().
+      subscribe(commercial => {
+        this.commercial = commercial;
+        console.log(commercial);
+        this.cdr.detectChanges();
+      });
+  }
+}
