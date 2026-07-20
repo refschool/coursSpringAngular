@@ -1,1 +1,35 @@
-<p>update-commercial works!</p>
+<form>
+    <div>
+        <label>ID Commercial</label>
+        <input type="text" [(ngModel)]="commercial.idCommercial" name="idCommercial" class="form-control w-25">
+    </div>
+    <div>
+        <label>Nom Commercial</label>
+        <input type="text" [(ngModel)]="commercial.nom" name="nomCommercial" class="form-control"
+            placeholder="Entrez le nom du commercial...">
+    </div>
+    <div>
+        <label>Prénom Commercial</label>
+        <input type="text" [(ngModel)]="commercial.prenom" name="prenomCommercial" class="form-control"
+            placeholder="Entrez le prénom du commercial...">
+    </div>
+    <div>
+        <label>Email</label>
+        <input type="email" [(ngModel)]="commercial.email" name="emailCommercial" class="form-control"
+            placeholder="Entrez l'email du commercial...">
+    </div>
+    <div>
+        <label>Téléphone</label>
+        <input type="text" [(ngModel)]="commercial.telephone" name="telephoneCommercial" class="form-control"
+            placeholder="Entrez le numéro de téléphone...">
+    </div>
+    <div>
+        <label>Date d'embauche</label>
+        <input type="date" [(ngModel)]="commercial.dateEmbauche" name="dateEmbauche" class="form-control w-25">
+    </div>
+    <div class="mt-2">
+        <button type="button" class="btn btn-success" [disabled]="!commercial.nom" (click)="saveCommercial()">
+            Ajouter
+        </button>
+    </div>
+</form>

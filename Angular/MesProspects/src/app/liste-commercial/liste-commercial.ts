@@ -12,8 +12,11 @@ import { UpdateCommercial } from '../update-commercial/update-commercial';
 })
 export class ListeCommercial implements OnInit {
   commercial!: Commercial[];
+  updatedCommercial: Commercial = { "idCommercial": 0, "nom": "", "prenom": "", "email": "", "telephone": "", "dateEmbauche": new Date() };
+
   constructor(private prospectService: ProspectService,
     private cdr: ChangeDetectorRef) { }
+
   ngOnInit(): void {
     this.prospectService.listeCommerciaux().
       subscribe(commercial => {
