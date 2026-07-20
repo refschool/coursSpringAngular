@@ -4,5 +4,5 @@ export class Commercial {
     prenom?: string;
     email?: string;
     telephone?: string;
-    date_embauche?: Date;
+    dateEmbauche?: Date;
 }

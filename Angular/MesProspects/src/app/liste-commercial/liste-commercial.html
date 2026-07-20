@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="card shadow mb-4">
+        <div class="card-body">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Date d'embauche</th>
+                    </tr>
+                </thead>
+
+                @for (com of commercial; track com.idCommercial) {
+                <tbody>
+                    <tr>
+                        <td>{{ com.idCommercial }}</td>
+                        <td>{{ com.nom }}</td>
+                        <td>{{ com.prenom }}</td>
+                        <td>{{ com.email }}</td>
+                        <td>{{ com.telephone }}</td>
+                        <td>{{ com.dateEmbauche | date:'dd/MM/yyyy' }}</td>
+                    </tr>
+                </tbody>
+                }
+            </table>
+
+        </div>
+    </div>
+</div>
