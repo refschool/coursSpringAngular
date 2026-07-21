@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Prospect } from '../model/prospect.model';
 import { Commercial } from '../model/commercial.model';
 import { ProspectService } from '../services/prospect';
+import { Auth } from '../services/auth';
 
 @Component({
   selector: 'app-prospects',
@@ -19,7 +20,8 @@ export class Prospects implements OnInit {
   constructor(
     private prospectService: ProspectService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    public authService: Auth
   ) { }
 
   ngOnInit(): void {

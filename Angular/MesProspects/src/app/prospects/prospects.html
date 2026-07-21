@@ -27,6 +27,7 @@
             <td>{{ prospect.source }}</td>
             <td>{{ prospect.dateCreation | date:'dd/MM/yyyy' }}</td>
             <td>{{ prospect.commercial?.nom || '—' }}</td>
+            @if(authService.isAdmin()) {
             <td>
                 <a class="btn btn-danger me-2" (click)="supprimerProspect(prospect)">
                     Supprimer
@@ -36,6 +37,7 @@
                     Modifier
                 </button>
             </td>
+            }
         </tr>
     </tbody>
 </table>
