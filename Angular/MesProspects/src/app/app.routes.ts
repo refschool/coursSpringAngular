@@ -5,6 +5,7 @@ import { UpdateProspect } from './update-prospect/update-prospect';
 import { RechercheParCommercial } from './recherche-par-commercial/recherche-par-commercial';
 import { RechercheParNom } from './recherche-par-nom/recherche-par-nom';
 import { ListeCommercial } from './liste-commercial/liste-commercial';
+import { Login } from './login/login';
 
 export const routes: Routes = [
     { path: "prospects", component: Prospects },
@@ -14,4 +15,5 @@ export const routes: Routes = [
     { path: "rechercheParCommercial", component: RechercheParCommercial },
     { path: "rechercheParNom", component: RechercheParNom },
     { path: "listeCommerciaux", component: ListeCommercial },
+    { path: 'login', component: Login },
 ]; 
