@@ -6,14 +6,16 @@ import { RechercheParCommercial } from './recherche-par-commercial/recherche-par
 import { RechercheParNom } from './recherche-par-nom/recherche-par-nom';
 import { ListeCommercial } from './liste-commercial/liste-commercial';
 import { Login } from './login/login';
-
+import { Forbidden } from './forbidden/forbidden';
+import { prospectGuard } from './prospect-guard';
 export const routes: Routes = [
     { path: "prospects", component: Prospects },
-    { path: "add-prospect", component: AddProspect },
+    { path: "add-prospect", component: AddProspect, canActivate: [prospectGuard] },
     { path: "", redirectTo: "prospects", pathMatch: "full" },
     { path: "updateProspect/:id", component: UpdateProspect },
     { path: "rechercheParCommercial", component: RechercheParCommercial },
     { path: "rechercheParNom", component: RechercheParNom },
     { path: "listeCommerciaux", component: ListeCommercial },
     { path: 'login', component: Login },
+    { path: 'app-forbidden', component: Forbidden },
 ]; 

@@ -3,7 +3,6 @@ package com.example.demo.restController;
 import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.entities.commercial;
-import com.example.demo.entities.utilisateur;
 import com.example.demo.service.commercialService;
 
 @RestController
