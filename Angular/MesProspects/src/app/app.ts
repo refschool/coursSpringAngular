@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component, OnInit, signal } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Auth } from './services/auth';
 
 @Component({
@@ -8,10 +8,20 @@ import { Auth } from './services/auth';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('MesProspects');
-  constructor(public authService: Auth) { }
+  constructor(public authService: Auth, public router: Router) { }
   onLogout() {
     this.authService.logout();
+  }
+  ngOnInit() {
+    let isloggedin: string;
+    let loggedUser: string;
+    isloggedin = localStorage.getItem('isloggedIn')!;
+    loggedUser = localStorage.getItem('loggedUser')!;
+    if (isloggedin != "true" || !loggedUser)
+      this.router.navigate(['/login']);
+    else
+      this.authService.setLoggedUserFromLocalStorage(loggedUser);
   }
 }
