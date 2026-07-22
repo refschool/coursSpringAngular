@@ -28,33 +28,54 @@ export class ProspectService {
     return this.http.get<Prospect[]>(this.apiURL, { headers: httpHeaders });
   }
   ajouterProspect(prospect: Prospect): Observable<Prospect> {
-    return this.http.post<Prospect>(this.apiURL, prospect, httpOptions);
+    let jwt = this.authService.getToken();
+    jwt = "Bearer " + jwt;
+    let httpHeaders = new HttpHeaders({ "Authorization": jwt })
+    return this.http.post<Prospect>(this.apiURL, prospect, { headers: httpHeaders });
   }
-  supprimerProspect(id: number): Observable<void> {
+  supprimerProspect(id: number) {
     const url = `${this.apiURL}/${id}`;
-
-    return this.http.delete<void>(url, httpOptions);
+    let jwt = this.authService.getToken();
+    jwt = "Bearer " + jwt;
+    let httpHeaders = new HttpHeaders({ "Authorization": jwt })
+    return this.http.delete(url, { headers: httpHeaders });
   }
   consulterProspect(id: number): Observable<Prospect> {
     const url = `${this.apiURL}/${id}`;
-
-    return this.http.get<Prospect>(url);
+    let jwt = this.authService.getToken();
+    jwt = "Bearer " + jwt;
+    let httpHeaders = new HttpHeaders({ "Authorization": jwt })
+    return this.http.get<Prospect>(url, { headers: httpHeaders });
   }
   updateProspect(prospect: Prospect): Observable<Prospect> {
+    let jwt = this.authService.getToken();
+    jwt = "Bearer " + jwt;
+    let httpHeaders = new HttpHeaders({ "Authorization": jwt })
     return this.http.put<Prospect>(
       this.apiURL,
       prospect,
-      httpOptions
+      { headers: httpHeaders }
     );
   }
 
   listeCommerciaux(): Observable<Commercial[]> {
-    return this.http.get<CommercialWrapper>(this.commercialURL)
-      .pipe(map(wrapper => wrapper._embedded?.commercials || []));
+    let jwt = this.authService.getToken();
+    jwt = 'Bearer ' + jwt;
+    let httpHeaders = new HttpHeaders({ Authorization: jwt });
+
+    return this.http
+      .get<CommercialWrapper>(this.commercialURL, { headers: httpHeaders })
+      .pipe(
+        map(wrapper => wrapper._embedded?.commercials || [])
+      );
   }
+
   rechercherParCommercial(idCommercial: number): Observable<Prospect[]> {
     const url = `${this.apiURL}/by-commercial`;
-    return this.http.post<Prospect[]>(url, { idCommercial }, httpOptions);
+    let jwt = this.authService.getToken();
+    jwt = "Bearer " + jwt;
+    let httpHeaders = new HttpHeaders({ "Authorization": jwt })
+    return this.http.post<Prospect[]>(url, { idCommercial }, { headers: httpHeaders });
   }
   rechercherParNom(nom: string): Observable<Prospect[]> {
     const url = `${this.apiURL}/prospectsByName/${nom}`;
