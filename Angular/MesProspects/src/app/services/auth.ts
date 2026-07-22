@@ -109,4 +109,8 @@ export class Auth {
     this.router.navigate(['/login']);
   }
 
+  isTokenExpired(): Boolean {
+    return this.helper.isTokenExpired(this.token);
+  }
+
 }
