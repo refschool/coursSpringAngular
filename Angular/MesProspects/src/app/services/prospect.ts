@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommercialWrapper } from '../model/CommercialWrapped.model';
-
+import { Auth } from './auth';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -19,10 +19,13 @@ export class ProspectService {
   commercialURL: string = 'http://localhost:8080/utilisateur/commercial';
   apiURL2: string = 'http://localhost:8080/utilisateur/api/commercials';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: Auth) {
   }
   listeProspect(): Observable<Prospect[]> {
-    return this.http.get<Prospect[]>(this.apiURL);
+    let jwt = this.authService.getToken();
+    jwt = "Bearer " + jwt;
+    let httpHeaders = new HttpHeaders({ "Authorization": jwt })
+    return this.http.get<Prospect[]>(this.apiURL, { headers: httpHeaders });
   }
   ajouterProspect(prospect: Prospect): Observable<Prospect> {
     return this.http.post<Prospect>(this.apiURL, prospect, httpOptions);
