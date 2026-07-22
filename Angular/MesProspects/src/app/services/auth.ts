@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
-  users: User[] = [{ "username": "admin", "password": "123", "roles": ['ADMIN'] },
-  { "username": "yvon", "password": "123", "roles": ['USER'] }];
+  /*   users: User[] = [{ "username": "admin", "password": "123", "roles": ['ADMIN'] },
+    { "username": "yvon", "password": "123", "roles": ['USER'] }]; */
 
   public loggedUser!: string;
   public isloggedIn: Boolean = false;
   public roles!: string[];
 
-  constructor(private router: Router) { }
+  apiURL: string = 'http://localhost:8081/utilisateur';
+  token!: string;
+
+  constructor(private router: Router,
+    private http: HttpClient) { }
 
   logout() {
     this.isloggedIn = false;
@@ -24,7 +29,7 @@ export class Auth {
     this.router.navigate(['/login']);
   }
 
-  SignIn(user: User): Boolean {
+  /* SignIn(user: User): Boolean {
     let validUser: Boolean = false;
     this.users.forEach((curUser) => {
       if (user.username == curUser.username && user.password == curUser.password) {
@@ -37,7 +42,7 @@ export class Auth {
       }
     });
     return validUser;
-  }
+  } */
 
   isAdmin(): Boolean {
     if (!this.roles) //this.roles== undefiened
@@ -48,13 +53,30 @@ export class Auth {
   setLoggedUserFromLocalStorage(login: string) {
     this.loggedUser = login;
     this.isloggedIn = true;
-    this.getUserRoles(login);
+    //this.getUserRoles(login);
   }
+  /*
   getUserRoles(username: string) {
     this.users.forEach((curUser) => {
       if (curUser.username == username) {
         this.roles = curUser.roles;
       }
     });
+  } */
+
+  login(user: User) {
+    return this.http.post<User>(this.apiURL + '/login', user, { observe: 'response' });
   }
+  saveToken(jwt: string) {
+    localStorage.setItem('jwt', jwt);
+    this.token = jwt;
+    this.isloggedIn = true;
+  }
+  loadToken() {
+    this.token = localStorage.getItem('jwt')!;
+  }
+  getToken(): string {
+    return this.token;
+  }
+
 }

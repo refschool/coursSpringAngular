@@ -37,18 +37,18 @@ public class SecurityConfig {
                 }))
 
                 .authorizeHttpRequests(requests -> requests
-                        /*
-                         * .requestMatchers("/api/all/**").hasAnyAuthority("ADMIN", "USER")
-                         * .requestMatchers(HttpMethod.GET, "/api/getbyid/**").hasAnyAuthority("ADMIN",
-                         * "USER")
-                         * .requestMatchers(HttpMethod.POST, "/api/adduser/**").hasAnyAuthority("ADMIN")
-                         * .requestMatchers(HttpMethod.PUT, "/api/updateuser/**").hasAuthority("ADMIN")
-                         * .requestMatchers(HttpMethod.DELETE, "/api/deluser/**").hasAuthority("ADMIN")
-                         * .anyRequest().authenticated())
-                         * .addFilterBefore(new JWTAuthorizationFilter(),
-                         * UsernamePasswordAuthenticationFilter.class);
-                         */
-                        .anyRequest().permitAll());
+
+                        .requestMatchers("/api/all/**").hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.GET, "/api/getbyid/**").hasAnyAuthority("ADMIN",
+                                "USER")
+                        .requestMatchers(HttpMethod.POST, "/api/adduser/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/updateuser/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/deluser/**").hasAuthority("ADMIN")
+                        .anyRequest().authenticated())
+                .addFilterBefore(new JWTAuthorizationFilter(),
+                        UsernamePasswordAuthenticationFilter.class);
+
+        // .anyRequest().permitAll());
         return http.build();
     }
 }
