@@ -3,6 +3,7 @@ package user.microservices.microservices.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ import user.microservices.microservices.repos.RoleRepository;
 import user.microservices.microservices.repos.UserRepository;
 import user.microservices.microservices.service.exceptions.EmailAlreadyExistsException;
 import user.microservices.microservices.service.register.RegistrationRequest;
+import user.microservices.microservices.service.register.VerificationToken;
+import user.microservices.microservices.service.register.VerificationTokenRepository;
 
 @Transactional
 @Service
@@ -21,11 +24,14 @@ public class UserServiceImpl implements UserService {
     final UserRepository userRep;
     final RoleRepository roleRep;
     final BCryptPasswordEncoder bCryptPasswordEncoder;
+    final VerificationTokenRepository verificationTokenRepo;
 
-    UserServiceImpl(UserRepository userRep, RoleRepository roleRep, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    UserServiceImpl(UserRepository userRep, RoleRepository roleRep, BCryptPasswordEncoder bCryptPasswordEncoder,
+            VerificationTokenRepository verificationTokenRepo) {
         this.userRep = userRep;
         this.roleRep = roleRep;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.verificationTokenRepo = verificationTokenRepo;
     }
 
     @Override
@@ -75,7 +81,20 @@ public class UserServiceImpl implements UserService {
         roles.add(r);
         newUser.setRoles(roles);
 
+        // génére le code secret
+        String code = this.generateCode();
+
+        VerificationToken token = new VerificationToken(code, newUser);
+        verificationTokenRepo.save(token);
+
         return userRep.save(newUser);
+    }
+
+    public String generateCode() {
+        Random random = new Random();
+        Integer code = 100000 + random.nextInt(900000);
+
+        return code.toString();
     }
 
 }
