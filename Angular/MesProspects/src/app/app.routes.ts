@@ -8,6 +8,7 @@ import { ListeCommercial } from './liste-commercial/liste-commercial';
 import { Login } from './login/login';
 import { Forbidden } from './forbidden/forbidden';
 import { prospectGuard } from './prospect-guard';
+import { Register } from './register/register';
 export const routes: Routes = [
     { path: "prospects", component: Prospects },
     { path: "add-prospect", component: AddProspect, canActivate: [prospectGuard] },
@@ -18,4 +19,5 @@ export const routes: Routes = [
     { path: "listeCommerciaux", component: ListeCommercial },
     { path: 'login', component: Login },
     { path: 'app-forbidden', component: Forbidden },
+    { path: 'register', component: Register },
 ]; 
