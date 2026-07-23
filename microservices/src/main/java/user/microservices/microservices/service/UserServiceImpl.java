@@ -1,6 +1,8 @@
 package user.microservices.microservices.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,8 @@ import user.microservices.microservices.entities.Role;
 import user.microservices.microservices.entities.User;
 import user.microservices.microservices.repos.RoleRepository;
 import user.microservices.microservices.repos.UserRepository;
+import user.microservices.microservices.service.exceptions.EmailAlreadyExistsException;
+import user.microservices.microservices.service.register.RegistrationRequest;
 
 @Transactional
 @Service
@@ -52,4 +56,26 @@ public class UserServiceImpl implements UserService {
     public List<User> findAllUsers() {
         return userRep.findAll();
     }
+
+    @Override
+    public User registerUser(RegistrationRequest request) {
+        Optional<User> optionaluser = userRep.findByEmail(request.getEmail());
+        if (optionaluser.isPresent())
+            throw new EmailAlreadyExistsException("email déjà existant!");
+        User newUser = new User();
+        newUser.setUsername(request.getUsername());
+        newUser.setEmail(request.getEmail());
+
+        newUser.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
+        newUser.setEnabled(false);
+        userRep.save(newUser);
+        // ajouter à newUser le role par défaut USER
+        Role r = roleRep.findByRole("USER");
+        List<Role> roles = new ArrayList<>();
+        roles.add(r);
+        newUser.setRoles(roles);
+
+        return userRep.save(newUser);
+    }
+
 }

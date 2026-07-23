@@ -5,12 +5,13 @@ import jakarta.persistence.*;
 
 @Entity
 public class User {
-    public User(Long user_id, String username, String password, Boolean enabled, List<Role> roles) {
+    public User(Long user_id, String username, String password, String email, Boolean enabled, List<Role> roles) {
         this.user_id = user_id;
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.roles = roles;
+        this.email = email;
     }
 
     @Id
@@ -20,6 +21,7 @@ public class User {
     private String username;
     private String password;
     private Boolean enabled;
+    private String email;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
@@ -71,6 +73,14 @@ public class User {
     @Override
     public String toString() {
         return "User [user_id=" + user_id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-                + ", roles=" + roles + "]";
+                + ", Email=" + email + ", roles=" + roles + "]";
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -72,8 +72,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login").permitAll()
                         .requestMatchers("/all").hasAuthority("ADMIN")
+                        .requestMatchers("/login", "/register/**").permitAll()
                         .anyRequest().authenticated())
 
                 .addFilter(new JWTAuthenticationFilter(authMgr))
