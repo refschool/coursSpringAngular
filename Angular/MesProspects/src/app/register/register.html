@@ -1,6 +1,11 @@
 <div class="container mt-5">
     <div class="row justify-content-md-center">
         <div class="col-md-4">
+            @if(err) {
+            <div class="alert alert-danger">
+                <strong>{{err}}</strong>
+            </div>
+            }
             <form [formGroup]="myForm">
                 <div class="form-group">
                     <label>Nom Utilisateur :</label>

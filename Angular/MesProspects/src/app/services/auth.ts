@@ -94,4 +94,9 @@ export class Auth {
     }
     return this.helper.isTokenExpired(this.token);
   }
+
+  registerUser(user: User) {
+    return this.http.post<User>(this.apiURL + '/register', user,
+      { observe: 'response' });
+  }
 }
