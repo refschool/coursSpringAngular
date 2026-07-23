@@ -22,39 +22,28 @@ export class ProspectService {
   constructor(private http: HttpClient, private authService: Auth) {
   }
   listeProspect(): Observable<Prospect[]> {
-    let jwt = this.authService.getToken();
-    jwt = "Bearer " + jwt;
-    let httpHeaders = new HttpHeaders({ "Authorization": jwt })
-    return this.http.get<Prospect[]>(this.apiURL, { headers: httpHeaders });
+
+    return this.http.get<Prospect[]>(this.apiURL);
   }
   ajouterProspect(prospect: Prospect): Observable<Prospect> {
-    let jwt = this.authService.getToken();
-    jwt = "Bearer " + jwt;
-    let httpHeaders = new HttpHeaders({ "Authorization": jwt })
-    return this.http.post<Prospect>(this.apiURL, prospect, { headers: httpHeaders });
+
+    return this.http.post<Prospect>(this.apiURL, prospect);
   }
   supprimerProspect(id: number) {
     const url = `${this.apiURL}/${id}`;
-    let jwt = this.authService.getToken();
-    jwt = "Bearer " + jwt;
-    let httpHeaders = new HttpHeaders({ "Authorization": jwt })
-    return this.http.delete(url, { headers: httpHeaders });
+
+    return this.http.delete(url);
   }
   consulterProspect(id: number): Observable<Prospect> {
     const url = `${this.apiURL}/${id}`;
-    let jwt = this.authService.getToken();
-    jwt = "Bearer " + jwt;
-    let httpHeaders = new HttpHeaders({ "Authorization": jwt })
-    return this.http.get<Prospect>(url, { headers: httpHeaders });
+
+    return this.http.get<Prospect>(url);
   }
   updateProspect(prospect: Prospect): Observable<Prospect> {
-    let jwt = this.authService.getToken();
-    jwt = "Bearer " + jwt;
-    let httpHeaders = new HttpHeaders({ "Authorization": jwt })
+
     return this.http.put<Prospect>(
       this.apiURL,
-      prospect,
-      { headers: httpHeaders }
+      prospect
     );
   }
 
